@@ -10,7 +10,42 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Vendor Login page</title>
 </head>
-<body>
-    
+<body class="bg-gray-50 font-sans">
+    <div class="flex items-center justify-center min-h-screen">
+        <form id="loginForm" class="bg-white p-8 rounded shadow-md w-full max-w-md space-y-6">
+            <h2 class="text-2xl font-bold text-teal-600 mb-4 text-center">Vendor Login</h2>
+            <div>
+                <label for="email" class="block text-gray-700 mb-1">Email Address</label>
+                <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400">
+            </div>
+            <div>
+                <label for="password" class="block text-gray-700 mb-1">Password</label>
+                <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400">
+            </div>
+            <button type="submit" class="w-full bg-teal-500 text-white py-2 rounded hover:bg-teal-600 font-semibold">Login</button>
+            <p class="text-center text-sm mt-2">
+                Don't have an account?
+                <a href="VendorSignup.html" class="text-teal-500 hover:underline">Sign up</a>
+            </p>
+            <div id="loginError" class="text-red-500 text-center text-sm hidden"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            // Example: Replace with real backend authentication
+            // This demo just checks for a hardcoded email/password
+            if(email === "vendor@example.com" && password === "password123") {
+                window.location.href = "Vendorprofile.html";
+            } else {
+                document.getElementById('loginError').textContent = "Invalid email or password.";
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
