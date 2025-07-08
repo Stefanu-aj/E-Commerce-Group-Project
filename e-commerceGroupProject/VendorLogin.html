@@ -83,19 +83,30 @@
         </p>
     </footer>
 
-    <script>
+    <script src="server.js">
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
 
-            if(email === "vendor@example.com" && password === "password123") {
-                window.location.href = "Vendorprofile.html";
-            } else {
-                document.getElementById('loginError').textContent = "Invalid email or password.";
-                document.getElementById('loginError').classList.remove('hidden');
-            }
+    try {
+        const res = await fetch('http://localhost:3000/api/vendor/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
         });
+        const result = await res.json();
+        if (res.ok) {
+            window.location.href = "Vendorprofile.html";
+        } else {
+            document.getElementById('loginError').textContent = result.message || "Login failed.";
+            document.getElementById('loginError').classList.remove('hidden');
+        }
+    } catch (err) {
+        document.getElementById('loginError').textContent = "Server error.";
+        document.getElementById('loginError').classList.remove('hidden');
+    }
+});
     </script>
 </body>
 </html>
